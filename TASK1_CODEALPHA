@@ -1,0 +1,64 @@
+package code_alpha;
+    
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class WordParagraphCounter extends JFrame implements ActionListener {
+
+    JTextArea textArea;
+    JLabel wordCountLabel;
+    JLabel paragraphCountLabel;
+
+    WordParagraphCounter() {
+        setTitle("Word and Paragraph Counter");
+        setLayout(new BorderLayout());
+
+        textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        add(scrollPane, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout());
+
+        wordCountLabel = new JLabel("Words: 0");
+        bottomPanel.add(wordCountLabel);
+
+        paragraphCountLabel = new JLabel("Paragraphs: 0");
+        bottomPanel.add(paragraphCountLabel);
+
+        JButton countButton = new JButton("Count");
+        countButton.addActionListener(this);
+        bottomPanel.add(countButton);
+
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("Count")) {
+            String text = textArea.getText();
+            // Counting words
+            String[] words = text.split("\\s+");
+            int wordCount = words.length;
+
+            // Counting paragraphs
+            String[] paragraphs = text.split("\n\n+");
+            int paragraphCount = paragraphs.length;
+
+            wordCountLabel.setText("Words: " + wordCount);
+            paragraphCountLabel.setText("Paragraphs: " + paragraphCount);
+        }
+    }
+
+    public static void main(String[] args) {
+        new WordParagraphCounter();
+    }
+}
+
+
